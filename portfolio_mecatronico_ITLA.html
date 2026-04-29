@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#111118;
+  --accent:#00e5a0;
+  --accent2:#0066ff;
+  --text:#f0f0f0;
+  --muted:#6b6b80;
+  --border:rgba(255,255,255,0.07);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Mono',monospace;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 3rem;
+  background:rgba(10,10,15,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--accent);}
+.nav-cta{
+  background:var(--accent);color:#000;
+  padding:0.5rem 1.2rem;border-radius:2px;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+  text-decoration:none;transition:opacity 0.2s;
+}
+.nav-cta:hover{opacity:0.85;}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:8rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,229,160,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,102,255,0.05) 0%, transparent 50%);
+}
+.grid-overlay{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+.hero-content{position:relative;max-width:700px;}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.5rem;
+}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--accent);}
+h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:800;line-height:1.0;
+  letter-spacing:-0.03em;
+  margin-bottom:1.5rem;
+}
+h1 .line2{color:var(--accent);}
+.hero-desc{
+  font-size:0.85rem;line-height:1.8;
+  color:var(--muted);max-width:500px;margin-bottom:2.5rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--accent);color:#000;
+  padding:0.75rem 1.8rem;border-radius:2px;
+  font-family:'DM Mono',monospace;font-size:0.8rem;font-weight:600;
+  text-decoration:none;letter-spacing:0.05em;transition:opacity 0.2s;
+}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary{
+  border:1px solid var(--border);color:var(--muted);
+  padding:0.75rem 1.8rem;border-radius:2px;
+  font-family:'DM Mono',monospace;font-size:0.8rem;
+  text-decoration:none;letter-spacing:0.05em;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+
+.hero-stats{
+  position:absolute;right:3rem;bottom:4rem;
+  display:flex;gap:3rem;
+}
+.stat{text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);}
+.stat-lbl{font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;}
+
+/* SKILLS */
+.skills-bar{
+  background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;gap:3rem;overflow:hidden;
+}
+.skills-bar-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.skills-marquee{display:flex;gap:2.5rem;animation:marquee 20s linear infinite;white-space:nowrap;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.skill-chip{
+  font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.3rem 0.8rem;border:1px solid var(--border);border-radius:2px;
+  color:var(--muted);white-space:nowrap;
+}
+
+/* SECTIONS */
+section{padding:6rem 3rem;}
+.section-header{
+  display:flex;align-items:baseline;gap:1rem;margin-bottom:3.5rem;
+}
+.section-num{font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;}
+.section-title{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-0.02em;
+}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border);}
+.project-card{
+  background:var(--bg);padding:2rem;
+  position:relative;overflow:hidden;
+  transition:background 0.3s;cursor:pointer;
+}
+.project-card:hover{background:var(--bg2);}
+.project-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s;
+}
+.project-card:hover::before{transform:scaleX(1);}
+.project-num{font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;}
+.project-icon{font-size:2rem;margin-bottom:1rem;}
+.project-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+.project-desc{font-size:0.78rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.tag{font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);}
+.tag.highlight{border-color:rgba(0,229,160,0.3);color:var(--accent);}
+.project-link{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:28px;height:28px;border:1px solid var(--border);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:0.8rem;
+  transition:border-color 0.2s,color 0.2s;
+}
+.project-card:hover .project-link{border-color:var(--accent);color:var(--accent);}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.about-text p{font-size:0.85rem;line-height:1.9;color:var(--muted);margin-bottom:1rem;}
+.about-text p strong{color:var(--text);}
+.skills-list{display:flex;flex-direction:column;gap:1rem;}
+.skill-row{display:flex;flex-direction:column;gap:0.4rem;}
+.skill-info{display:flex;justify-content:space-between;font-size:0.72rem;}
+.skill-name{color:var(--text);}
+.skill-pct{color:var(--accent);}
+.skill-track{height:2px;background:var(--border);border-radius:1px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+
+/* CONTACT */
+.contact-box{
+  border:1px solid var(--border);padding:3rem;
+  position:relative;overflow:hidden;
+}
+.contact-box::after{
+  content:'';position:absolute;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,229,160,0.05),transparent 70%);
+  right:-100px;bottom:-100px;pointer-events:none;
+}
+.contact-title{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;}
+.contact-title span{color:var(--accent);}
+.contact-desc{font-size:0.82rem;color:var(--muted);line-height:1.8;max-width:500px;margin-bottom:2rem;}
+.contact-links{display:flex;gap:1rem;flex-wrap:wrap;}
+.contact-link{
+  display:flex;align-items:center;gap:0.5rem;
+  padding:0.7rem 1.4rem;border:1px solid var(--border);
+  font-size:0.75rem;letter-spacing:0.05em;color:var(--muted);
+  text-decoration:none;border-radius:2px;
+  transition:border-color 0.2s,color 0.2s;
+}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);}
+
+/* FOOTER */
+footer{
+  padding:2rem 3rem;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.7rem;color:var(--muted);
+}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{padding:7rem 1.5rem 8rem;}
+  .hero-stats{position:static;margin-top:3rem;justify-content:flex-start;}
+  section{padding:4rem 1.5rem;}
+  .about-grid{grid-template-columns:1fr;}
+  .skills-bar{padding:1rem 1.5rem;}
+  footer{flex-direction:column;gap:0.5rem;text-align:center;}
+  .contact-box{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Joel<span>.</span>dev</div>
+  <div class="nav-links">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <a href="#contacto" class="nav-cta">Contrátame</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Tecnólogo en Mecatrónica · ITLA</div>
+    <h1>
+      Automatización<br>
+      <span class="line2">& Sistemas</span><br>
+      Inteligentes
+    </h1>
+    <p class="hero-desc">
+      Diseño y desarrollo sistemas de automatización industrial, IoT y robótica.
+      Especializado en PLC, CAD mecánico y electrónica embebida. Disponible para trabajo remoto internacional.
+    </p>
+    <div class="hero-btns">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="#contacto" class="btn-secondary">Conversemos</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3+</div><div class="stat-lbl">Años</div></div>
+    <div class="stat"><div class="stat-num">12+</div><div class="stat-lbl">Proyectos</div></div>
+    <div class="stat"><div class="stat-num">3.4</div><div class="stat-lbl">Índice GPA</div></div>
+  </div>
+</section>
+
+<div class="skills-bar">
+  <span class="skills-bar-label">Stack</span>
+  <div style="overflow:hidden;flex:1;">
+    <div class="skills-marquee">
+      <span class="skill-chip">AutoCAD</span>
+      <span class="skill-chip">SolidWorks</span>
+      <span class="skill-chip">PLC Programming</span>
+      <span class="skill-chip">Arduino / ESP32</span>
+      <span class="skill-chip">Circuitos Eléctricos</span>
+      <span class="skill-chip">Electrónica Digital</span>
+      <span class="skill-chip">CNC / CAM</span>
+      <span class="skill-chip">IoT</span>
+      <span class="skill-chip">Automatización Industrial</span>
+      <span class="skill-chip">Física Mecánica</span>
+      <span class="skill-chip">Inglés Técnico</span>
+      <!-- duplicado para efecto continuo -->
+      <span class="skill-chip">AutoCAD</span>
+      <span class="skill-chip">SolidWorks</span>
+      <span class="skill-chip">PLC Programming</span>
+      <span class="skill-chip">Arduino / ESP32</span>
+      <span class="skill-chip">Circuitos Eléctricos</span>
+      <span class="skill-chip">Electrónica Digital</span>
+      <span class="skill-chip">CNC / CAM</span>
+      <span class="skill-chip">IoT</span>
+      <span class="skill-chip">Automatización Industrial</span>
+      <span class="skill-chip">Física Mecánica</span>
+      <span class="skill-chip">Inglés Técnico</span>
+    </div>
+  </div>
+</div>
+
+<section id="proyectos">
+  <div class="section-header fade-in">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Proyectos</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div class="project-link">↗</div>
+      <div class="project-num">001</div>
+      <div class="project-icon">⚙️</div>
+      <div class="project-title">Sistema CAD Mecánico</div>
+      <div class="project-desc">Diseño técnico y modelado 3D de componentes mecánicos con tolerancias industriales. Renderizado y ensamblajes complejos.</div>
+      <div class="project-tags">
+        <span class="tag highlight">SolidWorks</span>
+        <span class="tag highlight">AutoCAD</span>
+        <span class="tag">3D Modeling</span>
+        <span class="tag">Technical Drawing</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-link">↗</div>
+      <div class="project-num">002</div>
+      <div class="project-icon">🔌</div>
+      <div class="project-title">Circuitos Eléctricos I & II</div>
+      <div class="project-desc">Diseño, análisis y simulación de circuitos eléctricos AC/DC. Implementación física con mediciones reales en laboratorio.</div>
+      <div class="project-tags">
+        <span class="tag highlight">Circuit Design</span>
+        <span class="tag highlight">Electronics</span>
+        <span class="tag">Simulation</span>
+        <span class="tag">Lab</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-link">↗</div>
+      <div class="project-num">003</div>
+      <div class="project-icon">🤖</div>
+      <div class="project-title">Electrónica I & II</div>
+      <div class="project-desc">Sistemas electrónicos analógicos y digitales. Amplificadores, filtros y circuitos de control implementados y verificados.</div>
+      <div class="project-tags">
+        <span class="tag highlight">Analog Electronics</span>
+        <span class="tag highlight">Digital Systems</span>
+        <span class="tag">PCB</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-link">↗</div>
+      <div class="project-num">004</div>
+      <div class="project-icon">🏭</div>
+      <div class="project-title">Programación CNC</div>
+      <div class="project-desc">Generación de trayectorias de mecanizado y programación en código G para manufactura de piezas con tolerancias de precisión.</div>
+      <div class="project-tags">
+        <span class="tag highlight">CNC</span>
+        <span class="tag highlight">G-Code</span>
+        <span class="tag">CAM</span>
+        <span class="tag">Manufacturing</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-link">↗</div>
+      <div class="project-num">005</div>
+      <div class="project-icon">📡</div>
+      <div class="project-title">IoT & Microcontroladores</div>
+      <div class="project-desc">Sistemas embebidos con conectividad IoT. Sensores, actuadores y comunicación inalámbrica para automatización y monitoreo remoto.</div>
+      <div class="project-tags">
+        <span class="tag highlight">Arduino</span>
+        <span class="tag highlight">ESP32</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Embedded C</span>
+      </div>
+    </div>
+    <div class="project-card fade-in" style="border:1px dashed rgba(0,229,160,0.2);display:flex;align-items:center;justify-content:center;min-height:200px;">
+      <div style="text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">+</div>
+        <div style="font-family:'Syne',sans-serif;font-size:0.9rem;color:var(--accent);">Tu próximo proyecto</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;">Microcontroladores · Sistemas de Control</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-header fade-in">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Sobre mí</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>Soy tecnólogo en <strong>Mecatrónica graduado del ITLA</strong>, la institución tecnológica más reconocida de República Dominicana. Me especializo en la intersección entre sistemas mecánicos, electrónica y software de control.</p>
+      <p>Con experiencia en <strong>automatización industrial, diseño CAD y sistemas embebidos</strong>, ofrezco soluciones técnicas de alta calidad para clientes remotos en industrias de manufactura, IoT y robótica.</p>
+      <p>Disponible para <strong>proyectos freelance y posiciones remotas</strong> a tiempo completo. Inglés técnico fluido.</p>
+    </div>
+    <div class="skills-list fade-in">
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">CAD / Diseño Mecánico</span><span class="skill-pct">90%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:90%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Electrónica & Circuitos</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:85%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">PLC / Automatización</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:80%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">IoT / Microcontroladores</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:80%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">CNC / Manufactura</span><span class="skill-pct">75%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:75%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Inglés Técnico</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:85%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="section-header fade-in">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Contacto</h2>
+  </div>
+  <div class="contact-box fade-in">
+    <div class="contact-title">¿Tienes un<br>proyecto? <span>Hablemos.</span></div>
+    <p class="contact-desc">Disponible para proyectos de automatización, diseño CAD, sistemas IoT y consultoría técnica. Respondo en menos de 24 horas.</p>
+    <div class="contact-links">
+      <a href="mailto:tu@email.com" class="contact-link">✉ Email</a>
+      <a href="https://linkedin.com/in/tu-perfil" class="contact-link">in LinkedIn</a>
+      <a href="https://github.com/tu-usuario" class="contact-link">⌥ GitHub</a>
+      <a href="https://wa.me/1809000000" class="contact-link">📱 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Joel · Tecnólogo en Mecatrónica</span>
+  <span style="color:var(--accent);">Santo Domingo, RD · Disponible globalmente</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
